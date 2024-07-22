@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <input type="text" oninput="searchProducts(event)" />
+    <input type="file" onchange="chooseImg(event)" name="radio2" />
+    <div id="preview"></div>
+  </body>
+</html>
+<script>
+  let products = ["rice", "beans", "onions", "tomatoes", "yam"];
+
+  preview.innerHTML = "";
+  for (let product of products) {
+    preview.innerHTML += `<p>${product}</p>`;
+  }
+
+  function searchProducts(e) {
+    let input = e.target.value.toLowerCase().replace(" ", "");
+
+    console.log(input);
+
+    let filteredProducts = products.filter((product) =>
+      product.includes(input)
+    );
+
+    if (filteredProducts.length === 0) {
+      preview.innerHTML = "product does not exist";
+    } else {
+      preview.innerHTML = "";
+      for (let product of filteredProducts) {
+        preview.innerHTML += `<p>${product}</p>`;
+      }
+    }
+  }
+
+  function chooseImg() {
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    if(file){
+      reader.readAsDataURL(file)
+    }
+    reader.addEventListener('load',(ev) =>{
+      let url = ev.target.result
+      console.log(url)
+    })
+  }
+
+  // function display(params) {
+  //     preview.innerHTML = ''
+  //     for (let product of filteredProducts) {
+  //         preview.innerHTML += `<p>${product}</p>`
+  //     }
+  // }
+</script>
